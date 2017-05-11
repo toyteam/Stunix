@@ -1,0 +1,6 @@
+#ifndef STUNIX_COMPILER_GCC_H
+#define STUNIX_COMPILER_GCC_H
+
+
+
+#endif

@@ -1,0 +1,5 @@
+#ifndef ASM_STACKPROTECTOR_H
+#define ASM_STACKPROTECTOR_H
+
+
+#endif
