@@ -20,7 +20,7 @@ void start_kernel(void)
 
     local_irq_disable();//关中断
 
-    boot_cpu_init();//cpu状态初始化
+    //boot_cpu_init();//cpu状态初始化
 
     page_address_init();//页地址初始化
 
