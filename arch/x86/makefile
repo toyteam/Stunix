@@ -1,4 +1,6 @@
 
+Curpath := arch/x86
+
 boot/:
 	$(MAKE) -C boot/
 

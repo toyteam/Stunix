@@ -1,4 +1,7 @@
 
+Curpath := arch/x86/boot
+ObjCurpath :=$(obj)
+
 bootsect.bin : bootsect.s bootsect-echo
 	$(cc) -c bootsect.s -o bootsect.bin
 
