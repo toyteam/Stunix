@@ -1,3 +1,10 @@
-bootsect.bin : bootsect.s
-	gcc -c bootsect.s
-	
+
+bootsect.bin : bootsect.s bootsect-echo
+	$(cc) -c bootsect.s -o bootsect.bin
+
+bootsect-echo:
+	@echo [Info]Compiling bootsect.bin
+
+clean:
+	$(rm) bootsect.bin
+
