@@ -3,8 +3,9 @@
 #define DEBUG
 
 
-
-
+#include<stunix/debugobjects.h>
+#include<stunix/stackprotecter.h>
+#include<stunix/irqflags.h>
 
 /*
 kernel start

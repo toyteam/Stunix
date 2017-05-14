@@ -16,10 +16,12 @@ obj		:= $(objtree)
 SUB_DIR := arch/x86 init
 Quiet :=
 
+export cc rm md
 export src obj
 
 
 all: arch/x86/ init/
+	@echo Complete compile.
 
 arch/x86/:
 	$(MAKE) -C $(srctree)/arch/x86/
