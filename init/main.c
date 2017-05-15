@@ -4,8 +4,8 @@
 
 
 #include<stunix/debugobjects.h>
-#include<stunix/stackprotecter.h>
-#include<stunix/irqflags.h>
+#include<stunix/stackprotector.h>
+#include<asm-generic/irqflags.h>
 
 /*
 kernel start
@@ -19,11 +19,11 @@ void start_kernel(void)
 
     boot_init_stack_canary();//栈溢出保护初始化
 
-    local_irq_disable();//关中断
+    //local_irq_disable();//关中断
 
     //boot_cpu_init();//cpu状态初始化
 
-    page_address_init();//页地址初始化
+    //page_address_init();//页地址初始化
 
 
 }

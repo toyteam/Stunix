@@ -1,6 +1,11 @@
 VERSION = buildn0001
 
 
+System := windows
+
+ifeq ($(System),windows)
+srctree 	:= $(shell cd)
+objtree		:= $(shell cd)
 
 cc := gcc
 # rm
@@ -8,27 +13,36 @@ rm := del
 # mkdir -p
 md := md
 
-srctree := .
-objtree		:= build
+endif
+
+ifeq ($(System),linux)
+srctree 	:= $(shell pwd)
+objtree		:= $(shell pwd)
+
+cc := cc
+rm := rm
+md := mkdir -p
+endif
+
 src		:= $(srctree)
 obj		:= $(objtree)
 
-SUB_DIR := arch/x86 init
+# SUB_DIR := arch/x86 init
 Quiet :=
 
 export cc rm md
 export src obj
 
 
-all: arch/x86/ init/
+all: $(src)/arch/x86/ $(src)/init/
 	@echo Complete compile.
 
-arch/x86/:
-	$(MAKE) -C $(srctree)/arch/x86/
+$(src)/arch/x86/:
+	$(MAKE) -C $(src)/arch/x86/
 
-init/:
-	$(MAKE) -C $(srctree)/init/
+$(src)/init/:
+	$(MAKE) -C $(src)/init/
 
 clean:
-	$(MAKE) -C $(srctree)/arch/x86/ clean
-	$(MAKE) -C $(srctree)/init/ clean
+	$(MAKE) -C $(src)/arch/x86/ clean
+	$(MAKE) -C $(src)/init/ clean
