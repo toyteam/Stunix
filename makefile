@@ -8,6 +8,8 @@ srctree 	:= $(shell cd)
 objtree		:= $(shell cd)
 
 cc := gcc
+ld := ld
+objcopy := objcopy
 # rm
 rm := del 
 # mkdir -p
@@ -20,6 +22,9 @@ srctree 	:= $(shell pwd)
 objtree		:= $(shell pwd)
 
 cc := cc
+ld := ld
+objcopy := objcopy
+
 rm := rm
 md := mkdir -p
 endif
@@ -30,7 +35,7 @@ obj		:= $(objtree)
 # SUB_DIR := arch/x86 init
 Quiet :=
 
-export cc rm md
+export cc ld objcopy rm md
 export src obj
 
 
