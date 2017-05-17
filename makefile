@@ -7,6 +7,7 @@ ifeq ($(System),windows)
 srctree 	:= $(shell cd)
 objtree		:= $(shell cd)
 
+as := as
 cc := gcc
 ld := ld
 objcopy := objcopy
@@ -21,6 +22,7 @@ ifeq ($(System),linux)
 srctree 	:= $(shell pwd)
 objtree		:= $(shell pwd)
 
+as := as
 cc := cc
 ld := ld
 objcopy := objcopy
@@ -35,7 +37,7 @@ obj		:= $(objtree)
 # SUB_DIR := arch/x86 init
 Quiet :=
 
-export cc ld objcopy rm md
+export as cc ld objcopy rm md
 export src obj
 
 
