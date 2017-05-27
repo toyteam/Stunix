@@ -39,7 +39,7 @@ STACK_TOP = stack_top-1
 # -----------------------------------------------------------------------------
 
 .globl start
-.extern main
+.extern boot_main
 
 .code32
 .section .text
@@ -71,7 +71,7 @@ start:
 	sti			# Now we should have a working stack
 
 # Jump to C code (should not return)
-    calll	main    # 调用内核环境初始化函数
+    calll	boot_main    # 调用内核环境初始化函数
 
 stop:
     hlt              # 停机指令，可以降低 CPU 功耗
