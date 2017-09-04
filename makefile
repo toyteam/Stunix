@@ -1,7 +1,7 @@
 VERSION = buildn0001
 
 
-System := windows
+System := linux
 
 ifeq ($(System),windows)
 srctree 	:= $(shell cd)
