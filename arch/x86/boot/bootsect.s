@@ -81,6 +81,7 @@ msg1:
 
 .section .bootflag
   boot_flag:    # 引导标识
+    .org 508
     .word 0x0000
     .byte 0x55
     .byte 0xAA

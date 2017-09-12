@@ -1,41 +1,25 @@
 
 Curpath := $(src)/arch/x86/boot
-ObjCurpath :=$(obj)
+Objpath :=$(obj)/arch/x86/boot
 
-
-all: bootsect.bin main.bin
+all: $(Objpath)/main.elf
 	@echo [Info]x86 boot completed.
 
+$(Objpath)/setup.o: $(Curpath)/setup.s
+	$(cc) -m32 -c $(Curpath)/setup.s -o $(Objpath)/setup.o
+	@echo [Info]Compiling setup.s
 
-bootsect.bin: bootsect.s bootsect-echo
-	$(cc) -nostdinc -I. -c bootsect.s
-	$(ld) -T bootsect.ld -N -e start -Ttext 0x7C00 bootsect.o -o bootsect.elf 
-	$(objcopy) -R .note -R .comment -S -O binary bootsect.elf bootsect.bin
-
-bootsect-echo:
-	@echo [Info]Compiling bootsect.bin
-
-
-header.o: header.s
-	$(as) -c header.s -o header.o
-	@echo [Info]Compiling header.s
-
-main.o: main.c
-	$(cc) -nostdinc -c main.c -o main.o
+$(Objpath)/main.o: $(Curpath)/main.c
+	$(cc) -m32 -nostdinc -c $(Curpath)/main.c -o $(Objpath)/main.o
 	@echo [Info]Compiling main.o
 
-main.bin: main.o header.o
-	$(ld) -N -e start -Ttext 0x1000000 header.o main.o -o main.elf 
-	$(objcopy) -R .note -R .comment -S -O binary main.elf main.bin
-	@echo [Info]Compiling main.bin
+$(Objpath)/main.elf: $(Objpath)/main.o $(Objpath)/setup.o
+	$(ld) -T $(Curpath)/main.ld -m elf_i386 $(Objpath)/setup.o $(Objpath)/main.o -o $(Objpath)/main.elf 
+	@echo [Info]Compiling main.elf
 	
 
 clean:
-	$(rm) bootsect.o
-	$(rm) bootsect.elf
-	$(rm) bootsect.bin
-	$(rm) main.o
-	$(rm) header.o
-	$(rm) main.elf
-	$(rm) main.bin
+	$(rm) $(Objpath)/main.o
+	$(rm) $(Objpath)/setup.o
+	$(rm) $(Objpath)/main.elf
 

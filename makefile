@@ -1,11 +1,12 @@
 VERSION = buildn0001
 
 
-System := windows
+System := linux
 
 ifeq ($(System),windows)
 srctree 	:= $(shell cd)
 objtree		:= $(shell cd)
+buildtree	:= $(shell cd)
 
 as := as
 cc := gcc
@@ -20,7 +21,7 @@ endif
 
 ifeq ($(System),linux)
 srctree 	:= $(shell pwd)
-objtree		:= $(shell pwd)
+objtree		:= $(shell pwd)/obj
 
 as := as
 cc := cc
@@ -38,18 +39,24 @@ obj		:= $(objtree)
 Quiet :=
 
 export as cc ld objcopy rm md
-export src obj
+export src obj build
 
 
-all: $(src)/arch/x86/ $(src)/init/
+all: $(obj)/arch/ $(obj)/init/
 	@echo Complete compile.
 
-$(src)/arch/x86/:
-	$(MAKE) -C $(src)/arch/x86/
+$(obj):
+	mkdir $(obj) 
 
-$(src)/init/:
+$(obj)/arch/:$(obj)
+	$(shell mkdir $(obj)/arch)
+	$(MAKE) -C $(src)/arch/
+
+$(obj)/init/:$(obj)
+	$(shell mkdir $(obj)/init)
 	$(MAKE) -C $(src)/init/
 
 clean:
-	$(MAKE) -C $(src)/arch/x86/ clean
+	$(MAKE) -C $(src)/arch/ clean
 	$(MAKE) -C $(src)/init/ clean
+	rm -rf $(obj)
